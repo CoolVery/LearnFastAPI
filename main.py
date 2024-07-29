@@ -19,3 +19,9 @@ def get_user(user_id: int):
 @app.get("/user_cut")
 def get_cut_user(limit: int = 3, offset: int = 0):
     return data_users[offset:limit]
+
+@app.post("/user/{user_id}")
+def change_user_name(user_id: int, new_name: str):
+    current_user = list(filter(lambda user: user.get("id") == user_id, data_users))[0]
+    current_user["name"] = new_name
+    return {"status": 200, "source": current_user}
