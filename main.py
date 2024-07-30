@@ -1,4 +1,6 @@
-from typing import List
+from datetime import datetime
+from enum import Enum
+from typing import List, Optional
 
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
@@ -12,10 +14,25 @@ data_users = [
     {"id": 2, "role": "editor", "name": "Bob"},
     {"id": 3, "role": "subscriber", "name": "Charlie"},
     {"id": 4, "role": "moderator", "name": "Diana"},
-    {"id": 5, "role": "viewer", "name": "Ethan"}
+    {"id": 5, "role": "viewer", "name": "Ethan", "degree": [
+        {"id": 1, "created_at": "2020-01-01T00:00:00", "type_degree": "expert"}
+    ]}
 ]
+class DegreeType(Enum):
+    newbie = "newbie"
+    expert = "expert"
 
-@app.get("/user/{user_id}")
+class Degree(BaseModel):
+    id: int
+    created_at: datetime
+    type_degree: DegreeType
+
+class User(BaseModel):
+    id: int
+    role: str
+    name: str
+    degree: Optional[List[Degree]] = None
+@app.get("/user/{user_id}", response_model=List[User])
 def get_user(user_id: int):
     return [user for user in data_users if user.get('id') == user_id]
 
