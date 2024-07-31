@@ -11,7 +11,7 @@ roles = Table(
     Column("name", String, nullable=False),
     Column("premissions", JSON)
 )
-
+#comment
 users = Table(
     "users",
     metadata,
