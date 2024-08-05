@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from config import DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME
+from config import DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME, SECRET_JWT
 from models.models import metadata
 
 # this is the Alembic Config object, which provides
@@ -18,6 +18,7 @@ config.set_section_option(section, "DB_PASS", DB_PASS)
 config.set_section_option(section, "DB_HOST", DB_HOST)
 config.set_section_option(section, "DB_PORT", DB_PORT)
 config.set_section_option(section, "DB_NAME", DB_NAME)
+config.set_section_option(section, "SECRET_JWT", SECRET_JWT)
 
 
 # Interpret the config file for Python logging.
